@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.green,
                           ),
                           label: Text(
-                            'E-mail',
+                            'E-Mail',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xffB81736)),
