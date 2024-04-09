@@ -1,7 +1,8 @@
 import 'package:e_learningapp/Routes/route_config.dart';
 import 'package:flutter/material.dart';
 
-void main(){
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   return runApp(const MyApp());
 }
 

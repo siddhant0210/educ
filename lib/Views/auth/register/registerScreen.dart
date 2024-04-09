@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+import '../../../Routes/route_config.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -107,26 +110,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 color: Color(0xffB81736)),
                           )),
                     ),
-                    
                     const SizedBox(
                       height: 70,
                     ),
-                    Container(
-                      width: 300,
-                      height: 55,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        gradient: const LinearGradient(
-                          colors: [Color(0xffB81736), Color(0xff281537)],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, RouteName.otp);
+                        print("Get OTP tapped!");
+                      },
+                      child: Container(
+                        width: 300,
+                        height: 55,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          gradient: const LinearGradient(
+                            colors: [Color(0xffB81736), Color(0xff281537)],
+                          ),
                         ),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Get Otp',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 20,
+                        child: const Center(
+                          child: Text(
+                            'Get Otp',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       ),
@@ -134,25 +142,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(
                       height: 150,
                     ),
-                    const Align(
+                    Align(
                       alignment: Alignment.bottomRight,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
+                          const Text(
                             "Already have an account ?",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.grey,
                             ),
                           ),
-                          Text(
-                            "Sign-In",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 17,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, RouteName.login);
+                            },
+                            child: const Text(
+                              "Sign-In",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 17,
+                              ),
                             ),
                           ),
                         ],
