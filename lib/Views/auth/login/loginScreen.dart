@@ -1,5 +1,6 @@
 import 'package:e_learningapp/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 
 import '../../../Routes/route_config.dart';
@@ -104,14 +105,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'Forgot Password',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff281537),
-                              fontSize: 17),
+                      GestureDetector(
+                        onTap: () {
+                          // Handle the onTap action, such as navigating to the forgot password screen
+                          Navigator.pushNamed(context, RouteName.forgotPass);
+                        },
+                        child: const Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            'Forgot Password',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff281537),
+                                fontSize: 17),
+                          ),
                         ),
                       ),
                       const SizedBox(
