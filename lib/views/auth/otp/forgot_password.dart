@@ -2,7 +2,7 @@ import 'package:e_learningapp/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-import '../../../Routes/route_config.dart';
+import '../../../routes/route_config.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});

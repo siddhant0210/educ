@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 
-import '../../../Routes/route_config.dart';
+import '../../../routes/route_config.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final Logger logger = Logger();
-  // ignore: prefer_typing_uninitialized_variables, non_constant_identifier_names
-  var confirm_password;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool _isSecuredPassword = true;
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: const Padding(
             padding: EdgeInsets.only(top: 60.0, left: 22),
             child: Text(
-              'Hello\nSign Up!',
+              'Hello\nSign in!',
               style: TextStyle(
                 fontSize: 30,
                 color: Colors.white,
@@ -64,6 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextFormField(
+                        controller: emailController,
                         validator: (value) {
                           if (!value!.isValidEmail) {
                             return ' Valid Email is required';
@@ -78,39 +79,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               color: Colors.green,
                             ),
                             label: Text(
-                              'E-mail',
+                              'E-Mail',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xffB81736)),
                             )),
                       ),
                       TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return '  userid is required';
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                            prefixIcon:
-                                Icon(Icons.person, color: Color(0xff281537)),
-                            suffixIcon: Icon(
-                              Icons.check,
-                              color: Colors.green,
-                            ),
-                            label: Text(
-                              'UserId',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xffB81736)),
-                            )),
-                      ),
-                      TextFormField(
+                        controller: passwordController,
                         obscureText: _isSecuredPassword,
                         validator: (value) {
-                          confirm_password = value;
                           if (!value!.isValidPassword) {
-                            return ' Valid password is required';
+                            return ' Valid Password is required';
                           }
                           return null;
                         },
@@ -125,27 +105,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   color: Color(0xffB81736)),
                             )),
                       ),
-                      TextFormField(
-                        obscureText: _isSecuredPassword,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Re-password is required';
-                          } else if (value != confirm_password) {
-                            return "Password must be same";
-                          }
-
-                          return null;
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          // Handle the onTap action, such as navigating to the forgot password screen
+                          Navigator.pushNamed(context, RouteName.forgotPass);
                         },
-                        decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.lock,
-                                color: Color(0xff281537)),
-                            suffixIcon: togglePassword(),
-                            label: const Text(
-                              'Re-enter Password',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xffB81736)),
-                            )),
+                        child: const Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            'Forgot Password',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff281537),
+                                fontSize: 17),
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 70,
@@ -156,9 +133,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text("Processing Data")),
                             );
-                            Navigator.pushNamed(context, RouteName.otp);
                           }
-                          logger.i("Get OTP tapped!");
+                          logger.i("Sign-In tapped!");
                         },
                         child: Container(
                           width: 300,
@@ -171,7 +147,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           child: const Center(
                             child: Text(
-                              'Get Otp',
+                              'SIGN IN',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -182,7 +158,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 150,
+                        height: 120,
                       ),
                       Align(
                         alignment: Alignment.bottomRight,
@@ -191,7 +167,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             const Text(
-                              "Already have an account ?",
+                              "Don't have an account?",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey,
@@ -199,10 +175,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, RouteName.login);
+                                Navigator.pushNamed(
+                                    context, RouteName.register);
                               },
                               child: const Text(
-                                "Sign-In",
+                                "Sign-Up",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
@@ -212,7 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

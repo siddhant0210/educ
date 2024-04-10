@@ -3,19 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 
-import '../../../Routes/route_config.dart';
+import '../../../routes/route_config.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final Logger logger = Logger();
-
+  // ignore: prefer_typing_uninitialized_variables, non_constant_identifier_names
+  var confirm_password;
   bool _isSecuredPassword = true;
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: const Padding(
             padding: EdgeInsets.only(top: 60.0, left: 22),
             child: Text(
-              'Hello\nSign in!',
+              'Hello\nSign Up!',
               style: TextStyle(
                 fontSize: 30,
                 color: Colors.white,
@@ -77,7 +78,28 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Colors.green,
                             ),
                             label: Text(
-                              'E-Mail',
+                              'E-mail',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xffB81736)),
+                            )),
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return '  userid is required';
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                            prefixIcon:
+                                Icon(Icons.person, color: Color(0xff281537)),
+                            suffixIcon: Icon(
+                              Icons.check,
+                              color: Colors.green,
+                            ),
+                            label: Text(
+                              'UserId',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xffB81736)),
@@ -86,8 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         obscureText: _isSecuredPassword,
                         validator: (value) {
+                          confirm_password = value;
                           if (!value!.isValidPassword) {
-                            return ' Valid Password is required';
+                            return ' Valid password is required';
                           }
                           return null;
                         },
@@ -102,24 +125,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: Color(0xffB81736)),
                             )),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          // Handle the onTap action, such as navigating to the forgot password screen
-                          Navigator.pushNamed(context, RouteName.forgotPass);
+                      TextFormField(
+                        obscureText: _isSecuredPassword,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Re-password is required';
+                          } else if (value != confirm_password) {
+                            return "Password must be same";
+                          }
+
+                          return null;
                         },
-                        child: const Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            'Forgot Password',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff281537),
-                                fontSize: 17),
-                          ),
-                        ),
+                        decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.lock,
+                                color: Color(0xff281537)),
+                            suffixIcon: togglePassword(),
+                            label: const Text(
+                              'Re-enter Password',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xffB81736)),
+                            )),
                       ),
                       const SizedBox(
                         height: 70,
@@ -130,8 +156,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text("Processing Data")),
                             );
+                            Navigator.pushNamed(context, RouteName.otp);
                           }
-                          logger.i("Sign-In tapped!");
+                          logger.i("Get OTP tapped!");
                         },
                         child: Container(
                           width: 300,
@@ -144,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: const Center(
                             child: Text(
-                              'SIGN IN',
+                              'Get Otp',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -155,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 200,
+                        height: 150,
                       ),
                       Align(
                         alignment: Alignment.bottomRight,
@@ -164,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             const Text(
-                              "Don't have an account?",
+                              "Already have an account ?",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey,
@@ -172,11 +199,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(
-                                    context, RouteName.register);
+                                Navigator.pushNamed(context, RouteName.login);
                               },
                               child: const Text(
-                                "Sign-Up",
+                                "Sign-In",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
@@ -186,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ],
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),

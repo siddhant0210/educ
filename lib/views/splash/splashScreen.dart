@@ -1,4 +1,4 @@
-import 'package:e_learningapp/Routes/route_config.dart';
+import 'package:e_learningapp/routes/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

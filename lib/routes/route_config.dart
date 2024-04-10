@@ -1,8 +1,8 @@
-import 'package:e_learningapp/Views/auth/login/loginScreen.dart';
-import 'package:e_learningapp/Views/auth/otp/forgot_password.dart';
-import 'package:e_learningapp/Views/auth/otp/otpScreen.dart';
-import 'package:e_learningapp/Views/auth/register/registerScreen.dart';
-import 'package:e_learningapp/Views/splash/splashScreen.dart';
+import 'package:e_learningapp/views/auth/login/loginScreen.dart';
+import 'package:e_learningapp/views/auth/otp/forgot_password.dart';
+import 'package:e_learningapp/views/auth/otp/otpScreen.dart';
+import 'package:e_learningapp/views/auth/register/registerScreen.dart';
+import 'package:e_learningapp/views/splash/splashScreen.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {

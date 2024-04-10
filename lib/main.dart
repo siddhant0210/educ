@@ -1,4 +1,4 @@
-import 'package:e_learningapp/Routes/route_config.dart';
+import 'package:e_learningapp/routes/route_config.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,3 +18,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+///
+/// login >> localhost:4000/api/v1/login
+/// signup >> localhost:4000/api/v1/signup
