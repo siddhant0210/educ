@@ -83,8 +83,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text("Processing Data")),
                             );
+                            Navigator.pushNamed(context, RouteName.otp);
                           }
-                          logger.i("Sign-In tapped!");
+                          logger.i("Submit tapped!");
                         },
                         child: Container(
                           width: 300,
