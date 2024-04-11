@@ -67,15 +67,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           TextFormField(
                             controller: emailController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'userid is required';
+                              }
+
+                              return null;
+                            },
                             decoration: const InputDecoration(
                                 prefixIcon:
-                                    Icon(Icons.mail, color: Color(0xff281537)),
+                                Icon(Icons.mail, color: Color(0xff281537)),
                                 suffixIcon: Icon(
                                   Icons.check,
                                   color: Colors.green,
                                 ),
                                 label: Text(
-                                  'E-Mail',
+                                  'UserId',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xffB81736)),
@@ -140,10 +147,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   // Navigate to the next screen if login is successful
                                   // ignore: use_build_context_synchronously
                                   logger.i("tapped!");
-                                  if(context.mounted){
-                                  Navigator.pushReplacementNamed(
-                                      context, RouteName.home);
-                                }}
+                                  if (context.mounted) {
+                                    Navigator.pushReplacementNamed(
+                                        context, RouteName.home);
+                                  }
+                                }
                                 logger.i("Sign-In tapped!");
                               }
                             },
