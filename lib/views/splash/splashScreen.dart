@@ -1,6 +1,7 @@
-import 'package:e_learningapp/routes/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../../routes/route_config.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

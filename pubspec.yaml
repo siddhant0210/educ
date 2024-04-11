@@ -40,6 +40,9 @@ dependencies:
   retrofit: ^4.1.0
   http: ^1.2.1
   json_annotation: ^4.8.1
+  dio: ^5.4.2+1
+  retrofit_generator: ^8.1.0
+  provider: ^6.1.2
   
 
 dev_dependencies:
