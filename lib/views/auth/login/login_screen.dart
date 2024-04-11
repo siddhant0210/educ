@@ -1,7 +1,6 @@
 import 'package:e_learningapp/utils/extensions.dart';
-import 'package:e_learningapp/view_models/Login_ViewModel.dart';
+import 'package:e_learningapp/view_models/login_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
@@ -68,12 +67,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           TextFormField(
                             controller: emailController,
-                            validator: (value) {
-                              if (!value!.isValidEmail) {
-                                return ' Valid Email is required';
-                              }
-                              return null;
-                            },
                             decoration: const InputDecoration(
                                 prefixIcon:
                                     Icon(Icons.mail, color: Color(0xff281537)),
@@ -132,14 +125,27 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 70,
                           ),
                           GestureDetector(
-                            onTap: () {
+                            onTap: () async {
+                              if (value.isLoading) return;
                               if (_formKey.currentState!.validate()) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text("Processing Data")),
                                 );
+                                await value.login(
+                                  emailController.text.trim(),
+                                  passwordController.text.trim(),
+                                );
+                                if (value.isLogged) {
+                                  // Navigate to the next screen if login is successful
+                                  // ignore: use_build_context_synchronously
+                                  logger.i("tapped!");
+                                  if(context.mounted){
+                                  Navigator.pushReplacementNamed(
+                                      context, RouteName.home);
+                                }}
+                                logger.i("Sign-In tapped!");
                               }
-                              logger.i("Sign-In tapped!");
                             },
                             child: Container(
                               width: 300,

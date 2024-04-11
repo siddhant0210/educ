@@ -1,5 +1,7 @@
 import 'package:e_learningapp/routes/route_config.dart';
+import 'package:e_learningapp/view_models/login_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,10 +13,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: RouteName.splash,
-      onGenerateRoute: RouteGenerator.onGenerateRoute,
+    return ChangeNotifierProvider(
+      create: (context) => LoginViewModel(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: RouteName.splash,
+        onGenerateRoute: RouteGenerator.onGenerateRoute,
+      ),
     );
   }
 }

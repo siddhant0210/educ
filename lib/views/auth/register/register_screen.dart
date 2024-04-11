@@ -19,7 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var confirm_password;
   bool _isSecuredPassword = true;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
         body: Stack(
       children: [

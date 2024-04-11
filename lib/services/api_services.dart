@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:e_learningapp/Networking/user.dart';
+import 'package:e_learningapp/networking/user.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_services.g.dart';
 
-@RestApi(baseUrl: "https://your.api.base.url/")
+@RestApi(baseUrl: "http://10.0.2.2:4000/api/v1/")
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 

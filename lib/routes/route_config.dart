@@ -1,8 +1,9 @@
-import 'package:e_learningapp/views/auth/login/loginScreen.dart';
+import 'package:e_learningapp/views/auth/login/login_screen.dart';
 import 'package:e_learningapp/views/auth/otp/forgot_password.dart';
-import 'package:e_learningapp/views/auth/otp/otpScreen.dart';
-import 'package:e_learningapp/views/auth/register/registerScreen.dart';
-import 'package:e_learningapp/views/splash/splashScreen.dart';
+import 'package:e_learningapp/views/auth/otp/otp_screen.dart';
+import 'package:e_learningapp/views/auth/register/register_screen.dart';
+import 'package:e_learningapp/views/home/home_screen.dart';
+import 'package:e_learningapp/views/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -26,8 +27,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const RegisterScreen());
       case RouteName.otp:
         return MaterialPageRoute(builder: (context) => const OtpScreen());
+      case RouteName.home:
+        return MaterialPageRoute(builder: (context) => const HomeScreen());
       case RouteName.forgotPass:
-        return MaterialPageRoute(builder: (context) => const ForgotPasswordScreen());     
+        return MaterialPageRoute(
+            builder: (context) => const ForgotPasswordScreen());
       default:
         return MaterialPageRoute(
           builder: (context) => const Scaffold(
