@@ -1,5 +1,5 @@
 import 'package:e_learningapp/utils/extensions.dart';
-import 'package:e_learningapp/view_models/login_viewmodel.dart';
+import 'package:e_learningapp/view_models/register_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
@@ -25,8 +25,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _isSecuredPassword = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Consumer<LoginViewModel>(
-      builder: (BuildContext context, LoginViewModel value, Widget? child) {
+    return Scaffold(body: Consumer<RegisterViewModel>(
+      builder: (BuildContext context, RegisterViewModel value, Widget? child) {
         return Stack(
           children: [
             Container(
@@ -161,18 +161,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              if (value.isLoading) return;
+                              if (value.isLoading){
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 10.0),
+                                  child: CircularProgressIndicator(
+                                    color: Color(0xff281537),
+                                    backgroundColor: Colors.transparent,
+                                  ), // Show circular progress bar below the button
+                                );
+                              };
                               if (_formKey.currentState!.validate()) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text("Processing Data")),
                                 );
-                                await value.login(
+                                await value.register(
+                                  userController.text.trim(),
                                   emailController.text.trim(),
                                   passwordController.text.trim(),
                                 );
 
-                               if (value.isLogged) {
+                               if (value.isRegistered) {
                                   // Navigate to the next screen if login is successful
                                   // ignore: use_build_context_synchronously
                                   logger.i("tapped!");

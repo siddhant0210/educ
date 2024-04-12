@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:e_learningapp/networking/user.dart';
+import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_services.g.dart';
@@ -10,4 +11,8 @@ abstract class ApiService {
 
   @POST("login")
   Future<User> login(@Body() Map<String, dynamic> loginData);
+
+  @POST("signup")
+  Future<Register> register(@Body() Map<String, dynamic> registerData);
+  
 }

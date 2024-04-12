@@ -1,8 +1,10 @@
 import 'package:e_learningapp/utils/extensions.dart';
 import 'package:e_learningapp/view_models/login_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../routes/route_config.dart';
 
@@ -19,6 +21,15 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool _isSecuredPassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Retrieve saved user data when the screen is initialized
+    Provider.of<LoginViewModel>(context, listen: false).retrieveUserData();
+    checkLoggedInStatus();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Consumer<LoginViewModel>(
@@ -76,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             decoration: const InputDecoration(
                                 prefixIcon:
-                                Icon(Icons.mail, color: Color(0xff281537)),
+                                    Icon(Icons.mail, color: Color(0xff281537)),
                                 suffixIcon: Icon(
                                   Icons.check,
                                   color: Colors.green,
@@ -133,17 +144,28 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              if (value.isLoading) return;
-                              if (_formKey.currentState!.validate()) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text("Processing Data")),
+                              if (value.isLoading) {
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 10.0),
+                                  child: CircularProgressIndicator(
+                                    color: Color(0xff281537),
+                                    backgroundColor: Colors.transparent,
+                                  ), // Show circular progress bar below the button
                                 );
+                              }
+
+                              if (_formKey.currentState!.validate()) {
                                 await value.login(
                                   emailController.text.trim(),
                                   passwordController.text.trim(),
                                 );
                                 if (value.isLogged) {
+                                  if (context.mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text("Processing Data")),
+                                    );
+                                  }
                                   // Navigate to the next screen if login is successful
                                   // ignore: use_build_context_synchronously
                                   logger.i("tapped!");
@@ -151,32 +173,56 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Navigator.pushReplacementNamed(
                                         context, RouteName.home);
                                   }
+                                } else if (!value.isLogged) {
+                                  showDialog(
+                                    // ignore: use_build_context_synchronously
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Login Error'),
+                                        content: const Text(
+                                            'Wrong username or password.'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 }
-                                logger.i("Sign-In tapped!");
+                                logger.i("Sign-Up tapped!");
                               }
                             },
-                            child: Container(
-                              width: 300,
-                              height: 55,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xffB81736),
-                                    Color(0xff281537)
-                                  ],
-                                ),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  'SIGN IN',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 20,
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 300,
+                                  height: 55,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    gradient: const LinearGradient(
+                                      colors: [
+                                        Color(0xffB81736),
+                                        Color(0xff281537)
+                                      ],
+                                    ),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      'SIGN IN',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                           const SizedBox(
@@ -223,6 +269,14 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       },
     ));
+  }
+
+  Future<void> checkLoggedInStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLogged') ?? false;
+    if (isLoggedIn) {
+      Navigator.pushReplacementNamed(context, RouteName.home);
+    }
   }
 
   Widget togglePassword() {

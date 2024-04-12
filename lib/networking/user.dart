@@ -16,3 +16,19 @@ class User{
 
   factory User.fromJson(Map<String , dynamic> json) => _$UserFromJson(json);
 }
+
+@JsonSerializable()
+class Register{
+  final String? email;
+  final String? name;
+  final String? password;
+
+  Register({
+    this.email,
+    this.name,
+    this.password,
+  });
+
+  factory Register.fromJson(Map<String , dynamic> json) => _$RegisterFromJson(json);
+  Map<String, dynamic> toJson() => _$RegisterToJson(this);
+}

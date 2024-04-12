@@ -15,3 +15,15 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'email': instance.email,
       'password': instance.password,
     };
+
+Register _$RegisterFromJson(Map<String, dynamic> json) => Register(
+      email: json['email'] as String?,
+      name: json['name'] as String?,
+      password: json['password'] as String?,
+    );
+
+Map<String, dynamic> _$RegisterToJson(Register instance) => <String, dynamic>{
+      'email': instance.email,
+      'name': instance.name,
+      'password': instance.password,
+    };
