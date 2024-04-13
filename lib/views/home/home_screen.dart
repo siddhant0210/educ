@@ -1,3 +1,4 @@
+import 'package:e_learningapp/views/bottom_nav/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,6 +11,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      bottomNavigationBar: BottomNav(),
+    );
   }
 }
