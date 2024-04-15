@@ -1,6 +1,7 @@
 import 'package:e_learningapp/views/pages/profile/profile.dart';
 import 'package:flutter/material.dart';
 
+// cannot use this because of app bar
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
 
@@ -34,12 +35,42 @@ class _BottomNavState extends State<BottomNav> {
     });
   }
 
+  getAppBar() {
+    switch (selectedtab) {
+      case 0:
+        {
+          return 'Home';
+        }
+      case 1:
+        {
+          return 'My Courses';
+        }
+      case 2:
+        {
+          return 'Your Progress';
+        }
+      case 3:
+        {
+          return 'Profile';
+        }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: widgetOptions.elementAt(selectedtab),
+      appBar: AppBar(
+       
+        title: Text(getAppBar()),
+        foregroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 100, 25, 40),
+        actions: [
+          IconButton(
+              onPressed: () => {}, icon: const Icon(Icons.notifications)),
+          IconButton(onPressed: () => {}, icon: const Icon(Icons.check_circle)),
+        ],
       ),
+      body: SafeArea(child: widgetOptions.elementAt(selectedtab)),
       bottomNavigationBar: Container(
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         decoration: const BoxDecoration(
