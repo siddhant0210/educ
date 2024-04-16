@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.edit,
+              Icons.stars_rounded,
               size: 80,
               color: Colors.white,
             ),
@@ -51,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 20,
             ),
             Text(
-              "Educational App",
+              "StudyNotion",
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 color: Colors.white,

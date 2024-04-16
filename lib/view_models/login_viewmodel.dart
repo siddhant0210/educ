@@ -29,16 +29,13 @@ class LoginViewModel extends ChangeNotifier {
       // logic of login
 
       // Save user data in SharedPreferences
-      await _secureStorage.write(key: 'username', value: email);
-      await _secureStorage.write(key: 'password', value: password);
       SharedPreferences pref = await SharedPreferences.getInstance();
+      
       pref.setBool('isLogged', true);
-
+      pref.setString('username', email);
+      
       // Update login status
       _isLogged = true;
-
-      // Handle other logic for successful login, e.g., navigation
-      // Example: navigateToHomeScreen();
 
       _isloading = false;
       error = null;

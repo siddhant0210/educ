@@ -13,6 +13,5 @@ abstract class ApiService {
   Future<User> login(@Body() Map<String, dynamic> loginData);
 
   @POST("signup")
-  Future<Register> register(@Body() Map<String, dynamic> registerData);
-  
+  Future<Register> register(@Body() Map<String, dynamic> registerData);  
 }

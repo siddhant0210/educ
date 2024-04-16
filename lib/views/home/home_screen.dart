@@ -1,3 +1,4 @@
+import 'package:e_learningapp/views/pages/home/home.dart';
 import 'package:e_learningapp/views/pages/profile/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+    HomePage(),
     Text(
       'Index 1: classes',
       style: optionStyle,
