@@ -1,3 +1,5 @@
+import 'package:e_learningapp/routes/route_config.dart';
+import 'package:e_learningapp/views/pages/classes/class.dart';
 import 'package:e_learningapp/views/pages/home/home.dart';
 import 'package:e_learningapp/views/pages/profile/profile.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> widgetOptions = <Widget>[
     HomePage(),
-    Text(
-      'Index 1: classes',
-      style: optionStyle,
-    ),
+    ClassScreen(),
     Text(
       'Index 2: Progress',
       style: optionStyle,
@@ -66,7 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: const Color.fromARGB(255, 100, 25, 40),
         actions: [
           IconButton(
-              onPressed: () => {}, icon: const Icon(Icons.notifications)),
+              onPressed: () => {
+                Navigator.pushNamed(context, RouteName.notifications),
+              }, icon: const Icon(Icons.notifications)),
           IconButton(onPressed: () => {}, icon: const Icon(Icons.check_circle)),
         ],
       ),

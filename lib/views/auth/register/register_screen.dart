@@ -161,7 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              if (value.isLoading){
+                              if (value.isLoading) {
                                 const Padding(
                                   padding: EdgeInsets.only(top: 10.0),
                                   child: CircularProgressIndicator(
@@ -169,7 +169,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     backgroundColor: Colors.transparent,
                                   ), // Show circular progress bar below the button
                                 );
-                              };
+                              }
+                              
                               if (_formKey.currentState!.validate()) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -181,14 +182,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   passwordController.text.trim(),
                                 );
 
-                               if (value.isRegistered) {
+                                if (value.isRegistered) {
                                   // Navigate to the next screen if login is successful
                                   // ignore: use_build_context_synchronously
                                   logger.i("tapped!");
                                   if (context.mounted) {
                                     // Navigator.pushReplacementNamed(
                                     //     context, RouteName.otp);
-                                     Navigator.pushReplacementNamed(
+                                    Navigator.pushReplacementNamed(
                                         context, RouteName.login);
                                   }
                                 }

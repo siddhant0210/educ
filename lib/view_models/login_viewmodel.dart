@@ -6,8 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginViewModel extends ChangeNotifier {
   final ApiService _apiService =
-    ApiService(Dio()..interceptors.add(LogInterceptor()));
-    final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
+      ApiService(Dio()..interceptors.add(LogInterceptor()));
+  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
   bool _isloading = false;
   bool _isLogged = false;
   String? error;
@@ -30,10 +30,10 @@ class LoginViewModel extends ChangeNotifier {
 
       // Save user data in SharedPreferences
       SharedPreferences pref = await SharedPreferences.getInstance();
-      
+
       pref.setBool('isLogged', true);
       pref.setString('username', email);
-      
+
       // Update login status
       _isLogged = true;
 

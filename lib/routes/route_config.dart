@@ -3,6 +3,7 @@ import 'package:e_learningapp/views/auth/otp/forgot_password.dart';
 import 'package:e_learningapp/views/auth/otp/otp_screen.dart';
 import 'package:e_learningapp/views/auth/register/register_screen.dart';
 import 'package:e_learningapp/views/home/home_screen.dart';
+import 'package:e_learningapp/views/pages/home/notification.dart';
 import 'package:e_learningapp/views/pages/profile/account/account.dart';
 import 'package:e_learningapp/views/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class RouteName {
   static const otp = "/otp";
   static const forgotPass = "/forgotpass";
   static const account = "/account";
+  static const notifications = "/notifications";
 }
 
 class RouteGenerator {
@@ -35,7 +37,9 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (context) => const ForgotPasswordScreen());
       case RouteName.account:
-        return MaterialPageRoute(builder: (context) => const AccountScreen());      
+        return MaterialPageRoute(builder: (context) => const AccountScreen());
+      case RouteName.notifications:
+        return MaterialPageRoute(builder: (context) => const Notifications());
       default:
         return MaterialPageRoute(
           builder: (context) => const HomeScreen(),

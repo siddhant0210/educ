@@ -25,15 +25,8 @@ class RegisterViewModel extends ChangeNotifier {
       };
       await _apiService.register(registerData);
 
-
-
       // Update login status
       _isregistered = true;
-
-
-
-
-
 
       _isloading = false;
       error = null;

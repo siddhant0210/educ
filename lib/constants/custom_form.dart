@@ -8,7 +8,6 @@ class CustomFormWidget extends StatelessWidget {
   final String? titleDialog;
   final String? contentDialog;
   final List<TextButton>? actionsDialog;
-  
 
   const CustomFormWidget({
     required this.appbarName,
@@ -49,7 +48,7 @@ class CustomFormWidget extends StatelessWidget {
               children: <Widget>[
                 Text(
                   "Enter $hintText1:",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -63,7 +62,7 @@ class CustomFormWidget extends StatelessWidget {
                 const SizedBox(height: 16),
                 Text(
                   "Enter $hintText2:",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -79,7 +78,9 @@ class CustomFormWidget extends StatelessWidget {
                 Center(
                   child: GestureDetector(
                     onTap: () {
-                      if (titleDialog != null && contentDialog != null && actionsDialog != null) {
+                      if (titleDialog != null &&
+                          contentDialog != null &&
+                          actionsDialog != null) {
                         showDialog(
                           context: context,
                           builder: (context) => CustomDialog(
@@ -99,7 +100,7 @@ class CustomFormWidget extends StatelessWidget {
                           colors: [Color(0xffB81736), Color(0xff281537)],
                         ),
                       ),
-                      child:  Center(
+                      child: const Center(
                         child: Text(
                           'Submit',
                           style: TextStyle(
