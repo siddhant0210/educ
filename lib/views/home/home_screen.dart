@@ -1,5 +1,5 @@
 import 'package:e_learningapp/routes/route_config.dart';
-import 'package:e_learningapp/views/pages/classes/class.dart';
+import 'package:e_learningapp/views/pages/classes/search_class.dart';
 import 'package:e_learningapp/views/pages/home/home.dart';
 import 'package:e_learningapp/views/pages/profile/profile.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +15,10 @@ class _HomeScreenState extends State<HomeScreen> {
  int selectedtab = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> widgetOptions = <Widget>[
+  static  List<Widget> widgetOptions = <Widget>[
     HomePage(),
-    ClassScreen(),
-    Text(
+    SearchScreen(),
+     Text(
       'Index 2: Progress',
       style: optionStyle,
     ),
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: widgetOptions.elementAt(selectedtab),
       bottomNavigationBar: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(color: Colors.black, blurRadius: 20),

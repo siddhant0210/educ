@@ -16,7 +16,4 @@ class HomeViewModel{
       throw e;
     }
   }
-
-  
-
 }
