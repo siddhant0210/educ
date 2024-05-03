@@ -13,7 +13,7 @@ class HomeViewModel{
       return dataList;
     } catch(e){
       print('Error fetching data: $e');
-      throw e;
+      rethrow;
     }
   }
 }

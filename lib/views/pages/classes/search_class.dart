@@ -37,7 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
           ),
-          Expanded(child: _buildSearchResultsList())
+          _buildSearchResultsList()
         ],
       ),
     );
@@ -106,7 +106,7 @@ class _SearchScreenState extends State<SearchScreen> {
             onTap: () {
               // Handle onTap
             },
-          );
+          ); 
         }
         },
       ),

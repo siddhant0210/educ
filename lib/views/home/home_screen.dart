@@ -16,13 +16,13 @@ class _HomeScreenState extends State<HomeScreen> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static  List<Widget> widgetOptions = <Widget>[
-    HomePage(),
-    SearchScreen(),
-     Text(
+    const HomePage(),
+    const SearchScreen(),
+     const Text(
       'Index 2: Progress',
       style: optionStyle,
     ),
-    ProfileScreen()
+    const ProfileScreen()
   ];
 
   void _onItemTapped(int index) {
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       case 1:
         {
-          return 'My Courses';
+          return 'Courses';
         }
       case 2:
         {

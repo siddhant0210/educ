@@ -49,7 +49,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               hintText2: 'new password')));
                 }),
             const Divider(
-              height: 1,
+              thickness: 2,
               color: Colors.black,
             ),
             ListTile(
@@ -96,7 +96,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 }),
             const Divider(
               height: 1,
-              color: Colors.black,
+              
             ),
             ListTile(
                 trailing: const Icon(
@@ -113,7 +113,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 }),
             const Divider(
               height: 1,
-              color: Colors.black,
+             
             ),
             ListTile(
                 trailing: const Icon(
@@ -152,7 +152,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 }),
             const Divider(
               height: 1,
-              color: Colors.black,
+             
             ),
           ],
         ));
