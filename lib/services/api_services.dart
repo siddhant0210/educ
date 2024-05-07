@@ -6,14 +6,14 @@ import 'package:retrofit/retrofit.dart';
 
 part 'api_services.g.dart';
 
-@RestApi(baseUrl: "https://fakestoreapi.com/")
+@RestApi(baseUrl: "https://studynotion-backend-ftp3.onrender.com/api/v1/")
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 
   @POST("login")
   Future<User> login(@Body() Map<String, dynamic> loginData);
 
-  @POST("signup")
+  @POST("auth/signup")
   Future<Register> register(@Body() Map<String, dynamic> registerData);
     
   @GET("products")

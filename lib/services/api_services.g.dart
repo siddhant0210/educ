@@ -13,7 +13,7 @@ class _ApiService implements ApiService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://fakestoreapi.com/';
+    baseUrl ??= 'https://studynotion-backend-ftp3.onrender.com/api/v1/';
   }
 
   final Dio _dio;
@@ -63,7 +63,7 @@ class _ApiService implements ApiService {
     )
             .compose(
               _dio.options,
-              'signup',
+              'auth/signup',
               queryParameters: queryParameters,
               data: _data,
             )

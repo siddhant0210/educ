@@ -1,6 +1,7 @@
 import 'package:e_learningapp/routes/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -63,10 +64,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
         height: 1,
         color: Colors.black,
       ),
-      const ListTile(
-        trailing: Icon(Icons.arrow_forward_ios, size: 16,),
-        title: Text("Logout", style: TextStyle(fontSize: 20),),
-        leading: Icon(Icons.logout),
+      ListTile(
+        trailing: const Icon(Icons.arrow_forward_ios, size: 16,),
+        title: const Text("Logout", style: TextStyle(fontSize: 20),),
+        leading: const Icon(Icons.logout),
+        onTap: () async {
+              SharedPreferences pref = await SharedPreferences.getInstance();
+              await pref.setBool('isLogged', false); // Set isLogged to false
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                RouteName.login, // Assuming 'login' is the route name for the login screen
+                (route) => false, // Remove all previous routes from the stack
+              );
+            },
       ),
       const Divider(
         height: 1,
