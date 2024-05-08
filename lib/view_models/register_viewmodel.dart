@@ -13,14 +13,16 @@ class RegisterViewModel extends ChangeNotifier {
 
   set _error(String error) {}
 
-  Future<void> register(String username, String email, String password) async {
+  Future<void> register(String email, String firstName,String lastName,String role, String password) async {
     try {
       _isloading = true;
       notifyListeners();
 
       final registerData = {
-        'username': username,
         'email': email,
+        'firstName': firstName,
+        'lastName': lastName,
+        'accountType': role,
         'password': password
       };
       await _apiService.register(registerData);

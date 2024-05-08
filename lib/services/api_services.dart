@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' hide Headers;
 import 'package:e_learningapp/networking/course.dart';
 import 'package:e_learningapp/networking/user.dart';
 import 'package:retrofit/http.dart';
@@ -10,13 +10,13 @@ part 'api_services.g.dart';
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 
-  @POST("login")
+  @POST("auth/login")
   Future<User> login(@Body() Map<String, dynamic> loginData);
 
   @POST("auth/signup")
   Future<Register> register(@Body() Map<String, dynamic> registerData);
     
-  @GET("products")
+  @GET("auth/getAllCourses")
   Future<List<Course>> fetchData();  
 }
 

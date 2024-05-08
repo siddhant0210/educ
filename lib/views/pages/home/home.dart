@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> loadUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      username = prefs.getString('username') ?? 'Champ';
+      username = prefs.getString('email') ?? 'Champ';
     });
   }
 

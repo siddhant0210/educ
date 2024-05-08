@@ -24,15 +24,15 @@ class LoginViewModel extends ChangeNotifier {
       _isloading = true;
       notifyListeners();
 
-      final loginData = {'username': email, 'password': password};
+      final loginData = {'email': email, 'password': password};
       await _apiService.login(loginData);
-      // logic of login
+      
 
       // Save user data in SharedPreferences
       SharedPreferences pref = await SharedPreferences.getInstance();
 
       pref.setBool('isLogged', true);
-      pref.setString('username', email);
+      pref.setString('email', email);
 
       // Update login status
       _isLogged = true;
@@ -48,7 +48,7 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   Future<void> retrieveUserData() async {
-    _username = await _secureStorage.read(key: 'username');
+    _username = await _secureStorage.read(key: 'email');
     _password = await _secureStorage.read(key: 'password');
     notifyListeners();
   }

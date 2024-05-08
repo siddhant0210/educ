@@ -35,7 +35,7 @@ class _ApiService implements ApiService {
     )
             .compose(
               _dio.options,
-              'login',
+              'auth/login',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -90,7 +90,7 @@ class _ApiService implements ApiService {
     )
             .compose(
               _dio.options,
-              'products',
+              'auth/getAllCourses',
               queryParameters: queryParameters,
               data: _data,
             )

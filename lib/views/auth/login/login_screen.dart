@@ -18,8 +18,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final Logger logger = Logger();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController(text: "abhyudayadev123@gmail.com");
+  TextEditingController passwordController = TextEditingController(text: "Abhyudaya@2002");
   bool _isSecuredPassword = true;
 
   @override
@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: emailController,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'userid is required';
+                                return 'email is required';
                               }
 
                               return null;
@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: Colors.green,
                                 ),
                                 label: Text(
-                                  'UserId',
+                                  'email',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xffB81736)),

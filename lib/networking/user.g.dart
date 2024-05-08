@@ -18,12 +18,16 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
 
 Register _$RegisterFromJson(Map<String, dynamic> json) => Register(
       email: json['email'] as String?,
-      name: json['name'] as String?,
+      firstName: json['firstName'] as String?,
+      lastName: json['lastName'] as String?,
+      role: json['role'] as String?,
       password: json['password'] as String?,
     );
 
 Map<String, dynamic> _$RegisterToJson(Register instance) => <String, dynamic>{
       'email': instance.email,
-      'name': instance.name,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+      'role': instance.role,
       'password': instance.password,
     };

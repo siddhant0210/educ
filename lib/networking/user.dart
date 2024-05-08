@@ -20,12 +20,16 @@ class User{
 @JsonSerializable()
 class Register{
   final String? email;
-  final String? name;
+  final String? firstName;
+  final String? lastName;
+  final String? role;
   final String? password;
 
   Register({
     this.email,
-    this.name,
+    this.firstName,
+    this.lastName,
+    this.role,
     this.password,
   });
 

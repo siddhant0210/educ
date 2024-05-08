@@ -18,11 +18,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final Logger logger = Logger();
   TextEditingController emailController = TextEditingController();
-  TextEditingController userController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController roleController = TextEditingController();
   // ignore: prefer_typing_uninitialized_variables, non_constant_identifier_names
   var confirm_password;
   bool _isSecuredPassword = true;
+  bool isEmailValid = false;
+  bool isFirstNameValid = false;
+  bool isLastNameValid = false;
+  String? selectedRole;
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Consumer<RegisterViewModel>(
@@ -75,16 +81,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (!value!.isValidEmail) {
                                 return ' Valid Email is required';
                               }
+
                               return null;
                             },
-                            decoration: const InputDecoration(
-                                prefixIcon:
-                                    Icon(Icons.mail, color: Color(0xff281537)),
-                                suffixIcon: Icon(
-                                  Icons.check,
-                                  color: Colors.green,
-                                ),
-                                label: Text(
+                            onChanged: (value) {
+                              setState(() {
+                                isEmailValid = value.isValidEmail;
+                              });
+                            },
+                            decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.mail,
+                                    color: Color(0xff281537)),
+                                suffixIcon: isEmailValid
+                                    ? const Icon(Icons.check,
+                                        color: Colors.green)
+                                    : null,
+                                label: const Text(
                                   'E-mail',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -92,26 +104,65 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 )),
                           ),
                           TextFormField(
-                            controller: userController,
+                            controller: firstNameController,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return '  userid is required';
+                                return '  first name is required';
                               }
                               return null;
                             },
-                            decoration: const InputDecoration(
-                                prefixIcon: Icon(Icons.person,
+                            onChanged: (value) {
+                              setState(() {
+                                isFirstNameValid = value.isNotEmpty;
+                              });
+                            },
+                            decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.person,
                                     color: Color(0xff281537)),
-                                suffixIcon: Icon(
-                                  Icons.check,
-                                  color: Colors.green,
-                                ),
-                                label: Text(
-                                  'UserId',
+                                suffixIcon: isFirstNameValid
+                                    ? const Icon(Icons.check,
+                                        color: Colors.green)
+                                    : null,
+                                label: const Text(
+                                  'First Name',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xffB81736)),
                                 )),
+                          ),
+                          TextFormField(
+                            controller: lastNameController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return '  last name is required';
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              setState(() {
+                                isLastNameValid = value.isNotEmpty;
+                              });
+                            },
+                            decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.person,
+                                    color: Color(0xff281537)),
+                                suffixIcon: isLastNameValid
+                                    ? const Icon(Icons.check,
+                                        color: Colors.green)
+                                    : null,
+                                label: const Text(
+                                  'Last Name',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xffB81736)),
+                                )),
+                          ),
+                          const SizedBox(
+                            height: 22,
+                          ),
+                          roleFormField(),
+                          const SizedBox(
+                            height: 22,
                           ),
                           TextFormField(
                             controller: passwordController,
@@ -170,15 +221,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ), // Show circular progress bar below the button
                                 );
                               }
-                              
+
                               if (_formKey.currentState!.validate()) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text("Processing Data")),
                                 );
                                 await value.register(
-                                  userController.text.trim(),
                                   emailController.text.trim(),
+                                  firstNameController.text.trim(),
+                                  lastNameController.text.trim(),
+                                  roleController.text.trim(),
                                   passwordController.text.trim(),
                                 );
 
@@ -221,28 +274,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                           const SizedBox(
-                            height: 100,
+                            height: 10,
                           ),
                           Align(
-                            alignment: Alignment.bottomRight,
+                            alignment: Alignment.center,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                const Text(
-                                  "Already have an account ?",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
-                                  ),
-                                ),
                                 GestureDetector(
                                   onTap: () {
                                     Navigator.pushNamed(
                                         context, RouteName.login);
                                   },
                                   child: const Text(
-                                    "Sign-In",
+                                    "Already have an account ?,Sign-In",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
@@ -265,6 +311,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
       },
     ));
   }
+
+  FormField<String> roleFormField() {
+  return FormField<String>(
+    builder: (FormFieldState<String> state) {
+      return DropdownButtonFormField<String>(
+        value: selectedRole,
+        onChanged: (newValue) {
+          setState(() {
+            selectedRole = newValue;
+            roleController.text = newValue ?? '';
+          });
+          state.didChange(newValue);
+        },
+        items: ['Student', 'Teacher']
+            .map<DropdownMenuItem<String>>(
+              (value) => DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              ),
+            )
+            .toList(),
+        decoration: const InputDecoration(
+          prefixIcon: Icon(Icons.person),
+          labelText: 'Role',
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xffB81736)),
+          ),
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please select a role';
+          }
+          return null;
+        },
+      );
+    },
+  );
+}
 
   Widget togglePassword() {
     return IconButton(
