@@ -1,16 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:e_learningapp/models/course.dart';
 import 'package:e_learningapp/services/api_services.dart';
+import 'package:flutter/material.dart';
 
-class HomeViewModel{
+class OtpViewModel extends ChangeNotifier{
   final ApiService _apiService = ApiService(Dio()..interceptors.add(LogInterceptor()));
-  List<Course> dataList = [];
 
-  Future<List<Course>> fetchData() async{
+  Future<void> otp(String email) async {
     try{
-      final response = await _apiService.fetchData();
-      dataList = response;
-      return dataList;
+      final otpData = {'email': email};
+      await _apiService.otp(otpData);  
     } catch(e){
       print('Error fetching data: $e');
       rethrow;

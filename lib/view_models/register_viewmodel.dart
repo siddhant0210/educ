@@ -11,9 +11,8 @@ class RegisterViewModel extends ChangeNotifier {
   bool get isLoading => _isloading;
   bool get isRegistered => _isregistered;
 
-  set _error(String error) {}
-
-  Future<void> register(String email, String firstName,String lastName,String role, String password) async {
+  Future<void> register(String email, String firstName, String lastName,
+      String role, String password, String rePassword, String otp) async {
     try {
       _isloading = true;
       notifyListeners();
@@ -23,7 +22,9 @@ class RegisterViewModel extends ChangeNotifier {
         'firstName': firstName,
         'lastName': lastName,
         'accountType': role,
-        'password': password
+        'password': password,
+        'confirmPassword': rePassword,
+        'otp': otp,
       };
       await _apiService.register(registerData);
 

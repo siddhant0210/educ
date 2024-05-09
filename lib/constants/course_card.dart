@@ -1,4 +1,4 @@
-import 'package:e_learningapp/networking/course.dart';
+import 'package:e_learningapp/models/course.dart';
 import 'package:e_learningapp/view_models/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 

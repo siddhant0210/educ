@@ -77,6 +77,34 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<Otp> otp(Map<String, dynamic> otpData) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(otpData);
+    final _result =
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Otp>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'auth/sendOtp',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = Otp.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<List<Course>> fetchData() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

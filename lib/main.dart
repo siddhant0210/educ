@@ -1,5 +1,6 @@
 import 'package:e_learningapp/routes/route_config.dart';
 import 'package:e_learningapp/view_models/login_viewmodel.dart';
+import 'package:e_learningapp/view_models/otp_viewmodel.dart';
 import 'package:e_learningapp/view_models/register_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +23,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<RegisterViewModel>(
           create: (context) => RegisterViewModel(),
         ),
+         ChangeNotifierProvider<OtpViewModel>(
+          create: (context) => OtpViewModel(),
+        ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: RouteName.splash,
+        initialRoute: RouteName.otp,
         onGenerateRoute: RouteGenerator.onGenerateRoute,
       ),
     );

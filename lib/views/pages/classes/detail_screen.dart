@@ -1,4 +1,4 @@
-import 'package:e_learningapp/networking/search.dart';
+import 'package:e_learningapp/models/search.dart';
 import 'package:flutter/material.dart';
 
 class SearchDetailScreen extends StatelessWidget {

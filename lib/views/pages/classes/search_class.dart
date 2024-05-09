@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:e_learningapp/networking/search.dart';
+import 'package:e_learningapp/models/search.dart';
 import 'package:e_learningapp/services/search_service.dart';
 import 'package:e_learningapp/views/pages/classes/detail_screen.dart';
 import 'package:flutter/material.dart';

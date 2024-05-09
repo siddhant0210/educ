@@ -22,6 +22,8 @@ Register _$RegisterFromJson(Map<String, dynamic> json) => Register(
       lastName: json['lastName'] as String?,
       role: json['role'] as String?,
       password: json['password'] as String?,
+      rePassword: json['rePassword'] as String?,
+      otp: json['otp'] as String?,
     );
 
 Map<String, dynamic> _$RegisterToJson(Register instance) => <String, dynamic>{
@@ -30,4 +32,14 @@ Map<String, dynamic> _$RegisterToJson(Register instance) => <String, dynamic>{
       'lastName': instance.lastName,
       'role': instance.role,
       'password': instance.password,
+      'rePassword': instance.rePassword,
+      'otp': instance.otp,
+    };
+
+Otp _$OtpFromJson(Map<String, dynamic> json) => Otp(
+      email: json['email'] as String?,
+    );
+
+Map<String, dynamic> _$OtpToJson(Otp instance) => <String, dynamic>{
+      'email': instance.email,
     };

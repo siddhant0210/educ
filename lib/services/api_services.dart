@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
-import 'package:e_learningapp/networking/course.dart';
-import 'package:e_learningapp/networking/user.dart';
+import 'package:e_learningapp/models/course.dart';
+import 'package:e_learningapp/models/user.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -15,7 +15,10 @@ abstract class ApiService {
 
   @POST("auth/signup")
   Future<Register> register(@Body() Map<String, dynamic> registerData);
-    
+
+  @POST("auth/sendOtp")
+  Future<Otp> otp(@Body() Map<String, dynamic> otpData);
+
   @GET("auth/getAllCourses")
   Future<List<Course>> fetchData();  
 }

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:e_learningapp/networking/search.dart';
+import 'package:e_learningapp/models/search.dart';
 import 'package:retrofit/http.dart';
 
 part 'search_service.g.dart';

@@ -1,5 +1,5 @@
 import 'package:e_learningapp/views/auth/login/login_screen.dart';
-import 'package:e_learningapp/views/auth/otp/forgot_password.dart';
+import 'package:e_learningapp/views/auth/otp/forgot_password_screen.dart';
 import 'package:e_learningapp/views/auth/otp/otp_screen.dart';
 import 'package:e_learningapp/views/auth/register/register_screen.dart';
 import 'package:e_learningapp/views/home/home_screen.dart';
@@ -21,6 +21,7 @@ class RouteName {
 
 class RouteGenerator {
   static Route onGenerateRoute(RouteSettings settings) {
+    final args = settings.arguments as Map<String, dynamic>?;
     switch (settings.name) {
       case RouteName.splash:
         return MaterialPageRoute(
@@ -29,8 +30,17 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const LoginScreen());
       case RouteName.register:
         return MaterialPageRoute(builder: (context) => const RegisterScreen());
-      case RouteName.otp:
-        return MaterialPageRoute(builder: (context) => const OtpScreen());
+     case RouteName.otp:
+        return MaterialPageRoute(
+          builder: (context) => OtpScreen(
+            email: args?['email'] ?? '',
+            firstName: args?['firstName'] ?? '',
+            lastName: args?['lastName'] ?? '',
+            role: args?['role'] ?? '',
+            password: args?['password'] ?? '',
+            repassword: args?['repassword'] ?? '',
+          ),
+        );
       case RouteName.home:
         return MaterialPageRoute(builder: (context) => const HomeScreen());
       case RouteName.forgotPass:

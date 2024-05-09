@@ -1,7 +1,6 @@
 import 'package:e_learningapp/utils/extensions.dart';
-import 'package:e_learningapp/view_models/register_viewmodel.dart';
+import 'package:e_learningapp/view_models/otp_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController rePasswordController = TextEditingController();
   TextEditingController roleController = TextEditingController();
   // ignore: prefer_typing_uninitialized_variables, non_constant_identifier_names
   var confirm_password;
@@ -31,8 +31,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? selectedRole;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Consumer<RegisterViewModel>(
-      builder: (BuildContext context, RegisterViewModel value, Widget? child) {
+    return Scaffold(body: Consumer<OtpViewModel>(
+      builder: (BuildContext context, OtpViewModel value, Widget? child) {
         return Stack(
           children: [
             Container(
@@ -186,6 +186,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 )),
                           ),
                           TextFormField(
+                            controller: rePasswordController,
                             obscureText: _isSecuredPassword,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -212,42 +213,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              if (value.isLoading) {
-                                const Padding(
-                                  padding: EdgeInsets.only(top: 10.0),
-                                  child: CircularProgressIndicator(
-                                    color: Color(0xff281537),
-                                    backgroundColor: Colors.transparent,
-                                  ), // Show circular progress bar below the button
-                                );
-                              }
-
                               if (_formKey.currentState!.validate()) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text("Processing Data")),
                                 );
-                                await value.register(
+                                await value.otp(
                                   emailController.text.trim(),
-                                  firstNameController.text.trim(),
-                                  lastNameController.text.trim(),
-                                  roleController.text.trim(),
-                                  passwordController.text.trim(),
                                 );
 
-                                if (value.isRegistered) {
-                                  // Navigate to the next screen if login is successful
-                                  // ignore: use_build_context_synchronously
-                                  logger.i("tapped!");
-                                  if (context.mounted) {
-                                    // Navigator.pushReplacementNamed(
-                                    //     context, RouteName.otp);
-                                    Navigator.pushReplacementNamed(
-                                        context, RouteName.login);
-                                  }
+                                // Navigate to the next screen if login is successful
+                                // ignore: use_build_context_synchronously
+                                logger.i("tapped!");
+                                if (context.mounted) {
+                                  // Navigator.pushReplacementNamed(
+                                  //     context, RouteName.otp);
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    RouteName.otp,
+                                    arguments: {
+                                      'email': emailController.text.trim(),
+                                      'firstName':
+                                          firstNameController.text.trim(),
+                                      'lastName':
+                                          lastNameController.text.trim(),
+                                      'role': roleController.text.trim(),
+                                      'password':
+                                          passwordController.text.trim(),
+                                      'repassword':
+                                          rePasswordController.text.trim(),
+                                    },
+                                  );
                                 }
-                                logger.i("submit tapped!");
                               }
+                              logger.i("submit tapped!");
                             },
                             child: Container(
                               width: 300,
@@ -313,42 +312,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   FormField<String> roleFormField() {
-  return FormField<String>(
-    builder: (FormFieldState<String> state) {
-      return DropdownButtonFormField<String>(
-        value: selectedRole,
-        onChanged: (newValue) {
-          setState(() {
-            selectedRole = newValue;
-            roleController.text = newValue ?? '';
-          });
-          state.didChange(newValue);
-        },
-        items: ['Student', 'Teacher']
-            .map<DropdownMenuItem<String>>(
-              (value) => DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              ),
-            )
-            .toList(),
-        decoration: const InputDecoration(
-          prefixIcon: Icon(Icons.person),
-          labelText: 'Role',
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xffB81736)),
+    return FormField<String>(
+      builder: (FormFieldState<String> state) {
+        return DropdownButtonFormField<String>(
+          value: selectedRole,
+          onChanged: (newValue) {
+            setState(() {
+              selectedRole = newValue;
+              roleController.text = newValue ?? '';
+            });
+            state.didChange(newValue);
+          },
+          items: ['Student', 'Teacher']
+              .map<DropdownMenuItem<String>>(
+                (value) => DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                ),
+              )
+              .toList(),
+          decoration: const InputDecoration(
+            prefixIcon: Icon(Icons.person),
+            label: Text(
+              'Role',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Color(0xffB81736)),
+            ),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: Color(0xffB81736)),
+            ),
           ),
-        ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Please select a role';
-          }
-          return null;
-        },
-      );
-    },
-  );
-}
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select a role';
+            }
+            return null;
+          },
+        );
+      },
+    );
+  }
 
   Widget togglePassword() {
     return IconButton(
