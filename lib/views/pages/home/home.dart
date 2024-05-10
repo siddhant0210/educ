@@ -30,59 +30,67 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text(
-              'Welcome, $username!', // Display the username here
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const Divider(
-            height: 1,
-            color: Colors.black,
-          ),
-          const Padding(
-            padding: EdgeInsets.all(12.0),
-            child: Text(
-              "New Categories",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
+      body: Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Welcome, $username!', // Display the username here
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Coursecard(homeViewModel: viewModel),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(12.0),
-            child: Text(
-              "Best Courses",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
+              const Divider(
+                height: 1,
+                color: Colors.black,
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Coursecard(homeViewModel: viewModel),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(12.0),
-            child: Text(
-              "Instructors",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "New Categories",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Coursecard(homeViewModel: viewModel),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Best Courses",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Coursecard(homeViewModel: viewModel),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Instructors",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+               Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Coursecard(homeViewModel: viewModel),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

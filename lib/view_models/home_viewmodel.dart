@@ -7,11 +7,11 @@ class HomeViewModel{
   List<Course> dataList = [];
 
   Future<List<Course>> fetchData() async{
-    try{
+    try {
       final response = await _apiService.fetchData();
-      dataList = response;
+      dataList = response.data;
       return dataList;
-    } catch(e){
+    } catch (e) {
       print('Error fetching data: $e');
       rethrow;
     }

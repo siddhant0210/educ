@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: RouteName.otp,
+        initialRoute: RouteName.splash,
         onGenerateRoute: RouteGenerator.onGenerateRoute,
       ),
     );

@@ -3,6 +3,24 @@
 part of 'api_services.dart';
 
 // **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+CourseResponse _$CourseResponseFromJson(Map<String, dynamic> json) =>
+    CourseResponse(
+      success: json['success'] as bool,
+      data: (json['data'] as List<dynamic>)
+          .map((e) => Course.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$CourseResponseToJson(CourseResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'data': instance.data,
+    };
+
+// **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
@@ -105,20 +123,20 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<List<Course>> fetchData() async {
+  Future<CourseResponse> fetchData() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<Course>>(Options(
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<CourseResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'auth/getAllCourses',
+              'course/getAllCourses',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -127,9 +145,7 @@ class _ApiService implements ApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) => Course.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = CourseResponse.fromJson(_result.data!);
     return value;
   }
 

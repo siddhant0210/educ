@@ -4,54 +4,77 @@ import 'package:flutter/material.dart';
 
 class Coursecard extends StatelessWidget {
   final HomeViewModel homeViewModel;
-  const Coursecard({required this.homeViewModel, super.key});
+  const Coursecard({required this.homeViewModel, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 140, // Dynamic height
-      child: FutureBuilder<List<Course>>(
-        future: homeViewModel.fetchData(),
-        builder: (context, AsyncSnapshot<List<Course>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}"));
-          } else {
-            return _buildCourseList(snapshot.data ?? []);
-          }
-        },
-      ),
+    return FutureBuilder<List<Course>>(
+      future: homeViewModel.fetchData(),
+      builder: (context, AsyncSnapshot<List<Course>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text("Error: ${snapshot.error}"));
+        } else {
+          return SingleChildScrollView( // Wrap Row with SingleChildScrollView
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: _buildCourseList(snapshot.data ?? []),
+            ),
+          );
+        }
+      },
     );
   }
 
- Widget _buildCourseList(List<Course> courses) {
-    if (courses.isNotEmpty) {
-      return ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: courses.length,
-        itemBuilder: (context, index) {
-          final item = courses[index];
-          return Card(
-            
-            child: SizedBox(
-              width: 150,
-              child: ListTile(
-                title: Text(item.title ?? 'No Title', maxLines: 1,),
-                subtitle: Text(item.description ?? 'No Description', maxLines: 3,),
+  List<Widget> _buildCourseList(List<Course> courses) {
+    return courses.map((item) {
+      return SizedBox(
+        width: 150,
+        child: Card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 70, // Consider removing fixed height if needed
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.contain, // Use BoxFit.contain or other flexible fit
+                    image: NetworkImage(item.thumbnail ?? ''),
+                  ),
+                ),
               ),
-            ),
-          );
-        },
-      );
-    } else {
-      return const Center(
-        child: Text(
-          "No data found",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.courseName ?? 'No Title',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Instructor: ${item.instructor?.firstName} ${item.instructor?.lastName}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Price: \$${item.price ?? 0}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       );
-    }
+    }).toList();
   }
 }

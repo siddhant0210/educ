@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:e_learningapp/models/course.dart';
 import 'package:e_learningapp/models/user.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -19,8 +20,22 @@ abstract class ApiService {
   @POST("auth/sendOtp")
   Future<Otp> otp(@Body() Map<String, dynamic> otpData);
 
-  @GET("auth/getAllCourses")
-  Future<List<Course>> fetchData();  
+  @GET("course/getAllCourses")
+  Future<CourseResponse> fetchData();  
+}
+
+@JsonSerializable()
+class CourseResponse {
+  final bool success;
+  final List<Course> data;
+
+  CourseResponse({
+    required this.success,
+    required this.data,
+  });
+
+  factory CourseResponse.fromJson(Map<String, dynamic> json) => _$CourseResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$CourseResponseToJson(this);
 }
 
 
